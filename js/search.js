@@ -710,10 +710,13 @@ const products = [{
   category: "Other",
   name: "Oat Milk (Wednesday & Saturday)"
 }];
+const CSSTransition = ReactTransitionGroup.CSSTransition;
 
 function Search() {
+  //state variables
   const [searchTerm, setSearchTerm] = React.useState("");
-  const [searchResults, setSearchResults] = React.useState([]); //handleChange with user input value
+  const [searchResults, setSearchResults] = React.useState([]);
+  const [selection, setSelection] = React.useState("All"); //handleChange with user input value
 
   const handleChange = e => {
     setSearchTerm(e.target.value);
@@ -741,7 +744,11 @@ function Search() {
     type: "text",
     placeholder: "Search here...",
     value: searchTerm,
-    onChange: handleChange
+    onChange: handleChange,
+    onClick: () => {
+      categorise();
+      setSelection("All");
+    }
   }), React.createElement("div", {
     className: "categories flex-item flex-container flex-row"
   }, React.createElement("div", {
@@ -749,6 +756,7 @@ function Search() {
     className: "selection flex-item",
     onClick: () => {
       categorise();
+      setSelection("All");
     }
   }, "All"), [...new Set(products.map(product => product.category))].map(category => React.createElement("div", {
     key: category,
@@ -756,14 +764,19 @@ function Search() {
     className: "selection flex-item",
     onClick: () => {
       categorise(category);
-      document.getElementById(category).classList.add('toggle');
+      setSelection(category);
     }
-  }, category)))), React.createElement("ul", {
+  }, category)))), React.createElement(CSSTransition, {
+    "in": true,
+    timeout: 1000,
+    classNames: 'fade',
+    unmountOnExit: false
+  }, React.createElement("ul", {
     className: "flex-container flex-row"
-  }, searchResults.map(product => React.createElement("li", {
+  }, React.createElement("h2", null, selection), searchResults.map(product => React.createElement("li", {
     key: product.name,
     className: "flex-item"
-  }, product.name))));
+  }, product.name)))));
 }
 
 const rootElement = document.getElementById("root");
