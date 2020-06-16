@@ -739,6 +739,8 @@ function Search() {
     className: "search"
   }, React.createElement("div", {
     className: "filters flex-container"
+  }, React.createElement("div", {
+    className: "input-wrapper flex-item"
   }, React.createElement("input", {
     className: "flex-item",
     type: "text",
@@ -750,7 +752,7 @@ function Search() {
       categorise();
       setSelection("All");
     }
-  }), React.createElement("div", {
+  })), React.createElement("div", {
     className: "categories flex-item flex-container flex-row"
   }, React.createElement("div", {
     key: "All",
@@ -767,17 +769,12 @@ function Search() {
       categorise(category);
       setSelection(category);
     }
-  }, category)))), React.createElement(CSSTransition, {
-    "in": true,
-    timeout: 1000,
-    classNames: 'fade',
-    unmountOnExit: false
-  }, React.createElement("ul", {
+  }, category)))), React.createElement("ul", {
     className: "flex-container flex-row"
   }, React.createElement("h2", null, selection), searchResults.map(product => React.createElement("li", {
     key: product.name,
     className: "flex-item"
-  }, product.name)))));
+  }, product.name))));
 }
 
 const rootElement = document.getElementById("root");
