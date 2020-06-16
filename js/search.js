@@ -744,7 +744,7 @@ function Search() {
   }, React.createElement("input", {
     className: "flex-item",
     type: "text",
-    inputmode: "search",
+    inputMode: "search",
     placeholder: "Search here...",
     value: searchTerm,
     onChange: handleChange,
