@@ -739,7 +739,7 @@ function Search() {
   }, React.createElement("div", {
     id: "mobileMargin",
     className: "p-wrapper"
-  }, React.createElement("p", null, "You can use the search below or select a category to browse our stock list, to help plan your shopping."), React.createElement("p", null, "Alternatively, ", React.createElement("a", {
+  }, React.createElement("p", null, "You can use the search below, or select a category, to browse our stock list and plan your shopping."), React.createElement("p", null, "Alternatively, ", React.createElement("a", {
     href: "./DenudeStockList.pdf"
   }, "there is a pdf available"), " which can be saved to your device for later use.")), React.createElement("div", {
     className: "filters flex-container"

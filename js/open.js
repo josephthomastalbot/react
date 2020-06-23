@@ -2,7 +2,6 @@ class Open extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoaded: true,
       currentDay: new Date(),
       currentTime: new Date(),
       weekDay: new Date().getDay(),
@@ -22,7 +21,6 @@ class Open extends React.Component {
   }
 
   componentWillUnmount() {
-    this.isLoaded = false;
     clearInterval(this.intervalID);
   }
 
@@ -35,8 +33,7 @@ class Open extends React.Component {
   async loadJSON() {
     await fetch('https://www.gov.uk/bank-holidays.json').then(response => response.json()).then(data => {
       this.setState({
-        bankHolidays: data,
-        isLoaded: true
+        bankHolidays: data
       });
     });
     this.compareHolidays();
