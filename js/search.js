@@ -710,7 +710,6 @@ const products = [{
   category: "Other",
   name: "Oat Milk (Wednesday & Saturday)"
 }];
-const CSSTransition = ReactTransitionGroup.CSSTransition;
 
 function Search() {
   //state variables
@@ -738,6 +737,11 @@ function Search() {
   return React.createElement("div", {
     className: "search"
   }, React.createElement("div", {
+    id: "mobileMargin",
+    className: "p-wrapper"
+  }, React.createElement("p", null, "You can use the search below or select a category to browse our stock list, to help plan your shopping."), React.createElement("p", null, "Alternatively, ", React.createElement("a", {
+    href: "./DenudeStockList.pdf"
+  }, "there is a pdf available"), " which can be saved to your device for later use.")), React.createElement("div", {
     className: "filters flex-container"
   }, React.createElement("div", {
     className: "input-wrapper flex-item"
@@ -777,5 +781,4 @@ function Search() {
   }, product.name))));
 }
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(React.createElement(Search, null), rootElement);
+ReactDOM.render(React.createElement(Search, null), document.getElementById("search"));
