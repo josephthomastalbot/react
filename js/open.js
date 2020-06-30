@@ -22,6 +22,7 @@ class Open extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.intervalID);
+    this.removeMargin();
   }
 
   tick() {
@@ -114,6 +115,14 @@ class Open extends React.Component {
 
     if (element) {
       element.className += " additional-margin";
+    }
+  }
+
+  removeMargin() {
+    let element = document.getElementById("mobileMargin");
+
+    if (element.classList.contains(" additional-margin")) {
+      element.className.remove(" additional-margin");
     }
   }
 
