@@ -709,7 +709,9 @@ const products = [{
 }, {
   category: "Other",
   name: "Oat Milk (Wednesday & Saturday)"
-}];
+}]; //TODO: 
+//No results found message
+//Highlighted categories onClick
 
 function Search() {
   //state variables

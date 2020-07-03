@@ -2,15 +2,14 @@ class Open extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentDay: new Date(),
       currentTime: new Date(),
       weekDay: new Date().getDay(),
-      openTime: new Date(null, null, null, 9, 15, 0, 0),
-      closeTime: new Date(null, null, null, 17, 0, 0, 0),
+      openTime: new Date(),
+      closeTime: new Date(),
       bankHolidays: [{
         data: []
       }],
-      shopOpen: false
+      openToday: false
     };
   }
 
@@ -22,7 +21,6 @@ class Open extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.intervalID);
-    this.removeMargin();
   }
 
   tick() {
@@ -41,10 +39,10 @@ class Open extends React.Component {
   }
 
   compareHolidays() {
-    this.state.shopOpen = !this.state.bankHolidays["england-and-wales"].events.some(holiday => {
+    this.state.openToday = !this.state.bankHolidays["england-and-wales"].events.some(holiday => {
       let bankHoliday = new Date(holiday.date).toLocaleDateString("en-GB");
 
-      if (this.state.currentDay.toLocaleDateString("en-GB") === bankHoliday) {
+      if (this.state.currentTime.toLocaleDateString("en-GB") === bankHoliday) {
         console.log("Denude is closed, for " + holiday.title);
         return true;
       }
@@ -56,92 +54,74 @@ class Open extends React.Component {
       case 0:
         //Sunday
         this.setState({
-          shopOpen: false
+          openToday: false
         });
         break;
 
       case 1:
         //Monday
-        this.setState({
-          openTime: new Date(null, null, null, 10, 0, 0, 0),
-          closeTime: new Date(null, null, null, 16, 0, 0, 0)
-        });
+        this.state.openTime.setHours(10, 0, 0);
+        this.state.closeTime.setHours(16, 0, 0);
         break;
 
       case 2:
         //Tuesday
-        this.setState({
-          openTime: new Date(null, null, null, 10, 0, 0, 0),
-          closeTime: new Date(null, null, null, 16, 0, 0, 0)
-        });
+        this.state.openTime.setHours(10, 0, 0);
+        this.state.closeTime.setHours(16, 0, 0);
         break;
 
       case 3:
         //Wednesday
-        this.setState({
-          openTime: new Date(null, null, null, 10, 0, 0, 0),
-          closeTime: new Date(null, null, null, 16, 0, 0, 0)
-        });
+        this.state.openTime.setHours(10, 0, 0);
+        this.state.closeTime.setHours(16, 0, 0);
         break;
 
       case 4:
         //Thursday
-        this.setState({
-          openTime: new Date(null, null, null, 10, 0, 0, 0),
-          closeTime: new Date(null, null, null, 16, 0, 0, 0)
-        });
+        this.state.openTime.setHours(10, 0, 0);
+        this.state.closeTime.setHours(16, 0, 0);
         break;
 
       case 5:
         //Friday
-        this.setState({
-          openTime: new Date(null, null, null, 10, 0, 0, 0),
-          closeTime: new Date(null, null, null, 16, 0, 0, 0)
-        });
+        this.state.openTime.setHours(10, 0, 0);
+        this.state.closeTime.setHours(10, 0, 0);
         break;
 
       case 6:
         //Saturday
-        this.setState({
-          openTime: new Date(null, null, null, 10, 0, 0, 0),
-          closeTime: new Date(null, null, null, 16, 0, 0, 0)
-        });
+        this.state.openTime.setHours(10, 0, 0);
+        this.state.closeTime.setHours(16, 0, 0);
         break;
     }
   }
 
   applyMargin() {
     let element = document.getElementById("mobileMargin");
-
-    if (element) {
-      element.className += " additional-margin";
-    }
+    element.classList.add("additional-margin");
   }
 
   removeMargin() {
     let element = document.getElementById("mobileMargin");
-
-    if (element.classList.contains(" additional-margin")) {
-      element.className.remove(" additional-margin");
-    }
+    element.classList.remove("additional-margin");
   }
 
   render() {
-    if (this.state.shopOpen && this.state.currentTime.getHours() >= this.state.openTime.getHours() && this.state.currentTime.getHours() < this.state.closeTime.getHours()) {
+    if (this.state.openToday && this.state.currentTime >= this.state.openTime && this.state.currentTime <= this.state.closeTime) {
       this.applyMargin();
       return React.createElement("div", {
         className: "open-wrapper"
       }, React.createElement("h2", null, "Open now!"), React.createElement("h3", null, "Until ", this.state.closeTime.toLocaleTimeString('en-GB', {
         hour: 'numeric',
+        minute: 'numeric',
         hour12: true
       })));
     } else {
+      this.removeMargin();
       return null;
     }
   }
 
-} //TODO:
-//checkHolidays outside of tick function
-
+}
 
 ReactDOM.render(React.createElement(Open, null), document.getElementById("open"));
