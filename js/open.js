@@ -85,7 +85,7 @@ class Open extends React.Component {
       case 5:
         //Friday
         this.state.openTime.setHours(10, 0, 0);
-        this.state.closeTime.setHours(10, 0, 0);
+        this.state.closeTime.setHours(16, 0, 0);
         break;
 
       case 6:
