@@ -98,12 +98,18 @@ class Open extends React.Component {
 
   applyMargin() {
     let element = document.getElementById("mobileMargin");
-    element.classList.add("additional-margin");
+
+    if (element) {
+      element.classList.add("additional-margin");
+    }
   }
 
   removeMargin() {
     let element = document.getElementById("mobileMargin");
-    element.classList.remove("additional-margin");
+
+    if (element) {
+      element.classList.remove("additional-margin");
+    }
   }
 
   render() {
